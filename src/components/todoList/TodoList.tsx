@@ -6,7 +6,10 @@ import { toggleTaskCompleted } from "../../features/toggleAddToDo";
 type TodoOption = {
   type: "general" | "completed" | "inCompleted";
 };
-function TodoItem({ task, completed, toggleCompleted, id }: TodoItem) {
+interface TodoItemProp extends TodoItem {
+  toggleCompleted: () => void;
+}
+function TodoItem({ task, completed, toggleCompleted, id }: TodoItemProp) {
   return (
     <div className="todo_item__container">
       <div className="checkbox-wrapper">
@@ -15,7 +18,7 @@ function TodoItem({ task, completed, toggleCompleted, id }: TodoItem) {
           id={`checkBox-${id}`}
           type="checkbox"
           checked={completed}
-          onChange={() => toggleCompleted}
+          onChange={() => toggleCompleted?.()}
         />
         <label htmlFor={`checkBox-${id}`} className="checkbox-custom" />
       </div>
