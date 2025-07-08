@@ -1,0 +1,81 @@
+.todo_item__container {
+  display: flex;
+  gap: 30px;
+  font-size: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 10px;
+}
+
+.todo_list {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+
+  height: 220px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  padding: 10px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #a6a6a6;
+}
+.todo_list__wrapper {
+  border: 1px solid black;
+  width: 500px;
+  height: 350px;
+  position: relative;
+
+  margin: 0 auto;
+}
+.active {
+  border: 1px solid #cf747463;
+  border-radius: 3px;
+}
+.inActive {
+  border: none;
+  background-color: #fff;
+}
+.btn__container button {
+  cursor: pointer;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  border-radius: 50%;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.checkbox-input:checked + .checkbox-custom::before {
+  content: "✔";
+  color: rgb(79, 230, 79);
+}
+.inactiveTask {
+  color: #a6a6a6;
+}
+
+.line-through {
+  text-decoration: line-through;
+  text-decoration-color: #a6a6a6;
+  text-decoration-thickness: 1px;
+}
+.todo-input {
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
