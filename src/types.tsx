@@ -1,8 +1,7 @@
 export interface TodoItem {
   task: string;
   completed: boolean;
-
-  id: number;
+  id: string;
 }
 export interface TodoList {
   general: string[];

@@ -37,6 +37,16 @@ export default function TodoList() {
   const [selectedOption, setSelectedOption] = useState<TodoOption>({
     type: "general",
   });
+
+  useEffect(() => {
+    if (taskList) {
+      switch (selectedOption.type) {
+        case "general":
+          break;
+      }
+    }
+  }, [selectedOption]);
+
   const [inputValue, setInputValue] = useState("");
 
   const [completed, setCompleted] = useState<TodoItem[] | null>(null);
@@ -56,39 +66,63 @@ export default function TodoList() {
     }
   }, [taskList]);
 
-  const generalRender = taskList?.map((item: TodoItem, index) => {
+  const generalRender = taskList?.map((item: TodoItem) => {
     return (
       <TodoItem
-        id={index}
-        key={index}
+        id={item.id}
+        key={item.id}
         task={item.task}
         completed={item.completed}
-        toggleCompleted={() => toggleTaskCompleted(index, setTaskList)}
+        toggleCompleted={() => toggleTaskCompleted(item.id, setTaskList)}
       ></TodoItem>
     );
   });
   const completedRender = completed?.map((item: TodoItem, index) => {
     return (
       <TodoItem
-        id={index}
+        id={item.id}
         key={index}
         task={item.task}
         completed={item.completed}
-        toggleCompleted={() => toggleTaskCompleted(index, setTaskList)}
+        toggleCompleted={() => toggleTaskCompleted(item.id, setTaskList)}
       ></TodoItem>
     );
   });
   const InCompltedRender = inCompleted?.map((item: TodoItem, index) => {
     return (
       <TodoItem
-        id={index}
+        id={item.id}
         key={index}
         task={item.task}
         completed={item.completed}
-        toggleCompleted={() => toggleTaskCompleted(index, setTaskList)}
+        toggleCompleted={() => toggleTaskCompleted(item.id, setTaskList)}
       ></TodoItem>
     );
   });
+  const renderSelected = () => {
+    return selectedOption.type === "general" ? (
+      taskList && taskList?.length > 0 ? (
+        generalRender
+      ) : (
+        <p>Your todo list is empty</p>
+      )
+    ) : selectedOption.type === "completed" ? (
+      completed && completed.length > 0 ? (
+        completedRender
+      ) : (
+        <p>Your completed list is empty</p>
+      )
+    ) : selectedOption.type === "inCompleted" ? (
+      inCompleted && inCompleted.length > 0 ? (
+        InCompltedRender
+      ) : (
+        <p>Your active todo is empty</p>
+      )
+    ) : (
+      <p>Error</p>
+    );
+  };
+  const renderList = renderSelected();
 
   return (
     <div className="todo__container">
@@ -116,29 +150,7 @@ export default function TodoList() {
         >
           What needs to be done?
         </p>
-        <div className="todo_list">
-          {selectedOption.type === "general" ? (
-            taskList && taskList?.length > 0 ? (
-              generalRender
-            ) : (
-              <p>Your todo list is empty</p>
-            )
-          ) : selectedOption.type === "completed" ? (
-            completed && completed.length > 0 ? (
-              completedRender
-            ) : (
-              <p>Your completed list is empty</p>
-            )
-          ) : selectedOption.type === "inCompleted" ? (
-            inCompleted && inCompleted.length > 0 ? (
-              InCompltedRender
-            ) : (
-              <p>Your active todo is empty</p>
-            )
-          ) : (
-            <p>Error</p>
-          )}
-        </div>
+        <div className="todo_list">{renderList}</div>
         <div
           className="btn__container"
           style={{
